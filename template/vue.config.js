@@ -55,8 +55,7 @@ module.exports = {
 
     // 路径别名
     config.resolve.alias.set('@', resolve('src'));
-    // config.resolve.alias.set('@mudas/example', resolve('packages/index.js'));
-    config.resolve.alias.set('@mudas/example', resolve('dist/example.common.js'));
+    config.resolve.alias.set('@mudas/example', resolve('packages/index.js'));
 
     // 不生成 html
     // config.plugins.delete('html');
