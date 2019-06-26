@@ -26,7 +26,7 @@
       "required": true,
       "label": "Project name",
       "default": "0.0.1-beta"
-    },
+    }
   },
   "completeMessage": "{{#inPlace}}To get started:\n\n  npm install\n  npm run serve{{else}}To get started:\n\n  cd {{destDirName}}\n  npm install\n  npm run serve{{/inPlace}}"
 }
