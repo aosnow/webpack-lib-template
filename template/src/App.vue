@@ -5,7 +5,7 @@
     <el-form>
       <switch-group>
         <el-input v-model="value"></el-input>
-        <el-alert title="取值：" type="info">{{repeatValue}}</el-alert>
+        <el-alert title="取值：" type="info" :description="repeatValue"></el-alert>
       </switch-group>
     </el-form>
 
