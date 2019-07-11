@@ -28,6 +28,19 @@ module.exports = {
       splitChunks: false
     },
 
+    // 调试配置
+    devServer: {
+      // 跨域配置
+      proxy: {
+        '/api': {
+          target: 'http://172.16.31.16:8080',
+          pathRewrite: { '^/api': '' },
+          changeOrigin: true,
+          secure: false
+        }
+      }
+    },
+
     // 排除 'element-ui'
     externals: [{
       Vue: 'vue',

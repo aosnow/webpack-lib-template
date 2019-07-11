@@ -17,23 +17,23 @@ module.exports = {
   rules: {
     // don't require .vue extension when importing
     'import/extensions': ['off', 'never'],
-    'import/no-unresolved': 0,
-    'import/no-named-as-default': 0,
-    'import/no-named-as-default-member': 0,
-    'import/no-extraneous-dependencies': 0,
-    'import/newline-after-import': 0,
-    'import/no-duplicates': 0,
-    'import/no-cycle': 0,
-    'import/prefer-default-export': 0,
-    'import/no-mutable-exports': 0,
+    'import/no-unresolved': 'off',
+    'import/no-named-as-default': 'off',
+    'import/no-named-as-default-member': 'off',
+    'import/no-extraneous-dependencies': 'off',
+    'import/newline-after-import': 'off',
+    'import/no-duplicates': 'off',
+    'import/no-cycle': 'off',
+    'import/prefer-default-export': 'off',
+    'import/no-mutable-exports': 'off',
 
-    'no-restricted-syntax': 0,
-    'no-nested-ternary': 0,
-    'object-shorthand': 0,
-    'no-unused-vars': 0,
-    'no-shadow': 0,
-    'prefer-destructuring': 0,
-    'operator-linebreak': 0,
+    'no-restricted-syntax': 'off',
+    'no-nested-ternary': 'off',
+    'object-shorthand': 'off',
+    'no-unused-vars': 'off',
+    'no-shadow': 'off',
+    'prefer-destructuring': 'off',
+    'operator-linebreak': 'off',
     'no-useless-computed-key': 'off',
 
     // 语句块内的前后是否需要空白行隔开
@@ -85,13 +85,13 @@ module.exports = {
       'asyncArrow': 'always'
     }],
     // 是否允许使用 console 语句
-    'no-console': 0,
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     // 箭头函数的函数体样式：是否需要｛｝包含
-    'arrow-body-style': 0,
+    'arrow-body-style': 'off',
     // 箭头函数的参数表是否需要括号包起来
-    'arrow-parens': 0,
+    'arrow-parens': 'off',
     // 匿名函数是否需要规定函数名
-    'func-names': 0,
+    'func-names': 'off',
     // 大括号的换行风格
     'brace-style': ['error', 'stroustrup', { 'allowSingleLine': true }],
     // 当存在更简单的三元运算写法时，是否简化如：“x ? x : ''”开启时需要简化为 “x || ''”
@@ -108,20 +108,20 @@ module.exports = {
       'classes': false
     }],
     'wrap-iife': ['error', 'inside'],
-    'indent': 0,
+    'indent': 'off',
 
     // syntax
     // ---------------------------------------------------------------------------
-    'no-else-return': 0,
-    'guard-for-in': 0,
-    'no-lonely-if': 0,
-    'lines-between-class-members': 0,
-    'class-methods-use-this': 0,
-    'prefer-spread': 0,
+    'no-else-return': 'off',
+    'guard-for-in': 'off',
+    'no-lonely-if': 'off',
+    'lines-between-class-members': 'off',
+    'class-methods-use-this': 'off',
+    'prefer-spread': 'off',
 
     // flowtype
     // ---------------------------------------------------------------------------
-    'flowtype/space-before-type-colon': 0,
-    'flowtype/no-types-missing-file-annotation': 0
+    'flowtype/space-before-type-colon': 'off',
+    'flowtype/no-types-missing-file-annotation': 'off'
   }
 };
