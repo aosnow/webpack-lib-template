@@ -1,2 +1,5 @@
-> 1%
+ie >= 11
+edge >= 12
+Firefox >= 59
+Chrome >= 59
 last 2 versions
