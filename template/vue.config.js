@@ -5,19 +5,33 @@
 // ------------------------------------------------------------------------------
 
 const path = require('path');
-const CopyPlugin = require('copy-webpack-plugin');
 const HappyPack = require('happypack');
 const os = require('os');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
-
-// const isDebug = process.env.NODE_ENV === 'development';
+const isDebug = process.env.NODE_ENV === 'development';
 
 function resolve(...dir) {
   return path.join(__dirname, ...dir);
 }
 
 module.exports = {
+  publicPath: isDebug ? '/' : './',
+  outputDir: 'dist',
+  assetsDir: '',
   productionSourceMap: false,
+
+  // 调试配置
+  devServer: {
+    // 跨域配置
+    proxy: {
+      '/api': {
+        target: 'http://172.16.31.16:8080',
+        pathRewrite: { '^/api': '' },
+        changeOrigin: true,
+        secure: false
+      }
+    }
+  },
 
   configureWebpack: {
 
@@ -28,34 +42,14 @@ module.exports = {
       splitChunks: false
     },
 
-    // 调试配置
-    devServer: {
-      // 跨域配置
-      proxy: {
-        '/api': {
-          target: 'http://172.16.31.16:8080',
-          pathRewrite: { '^/api': '' },
-          changeOrigin: true,
-          secure: false
-        }
-      }
-    },
-
-    // 排除 'element-ui'
+    // 排除外部库（如使用CDN或引用本地JS库）
     externals: [{
-      Vue: 'vue',
-      ElementUI: 'element-ui'
+      vue: 'Vue',
+      'element-ui': 'ElementUI'
     }],
-
-    // 输出设置
-    output: {
-      filename: '[name].js',
-      chunkFilename: '[name].[contenthash:8].js'
-    },
 
     // 复制插件
     plugins: [
-      // new CopyPlugin(['packages/readme.txt']),
       new HappyPack({
         id: 'happyBabel',
         loaders: [{ loader: 'babel-loader?cacheDirectory=true' }],
@@ -65,6 +59,12 @@ module.exports = {
   },
 
   chainWebpack: (config) => {
+
+    // 输出到 dist，而非 dist/static
+    config.output.filename('[name].js');
+
+    // 增加资源识别路径（仍然不支持 style="background: url()" 的路径识别）
+    // config.module.rule('file').include.add('/demo/assets');
 
     // 路径别名
     config.resolve.alias.set('@', resolve('src'));
