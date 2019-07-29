@@ -37,16 +37,16 @@ module.exports = {
 
     entry: resolve('src/main.js'),
 
-    // 不分割任何模块
+    // 不分割任何模块（子模块合并，因此包不能过大）
     optimization: {
       splitChunks: false
     },
 
     // 排除外部库（如使用CDN或引用本地JS库）
-    externals: [{
-      vue: 'Vue',
-      'element-ui': 'ElementUI'
-    }],
+    externals: {
+      // vue: 'Vue',
+      // 'element-ui': 'ElementUI'
+    },
 
     // 复制插件
     plugins: [
@@ -70,10 +70,12 @@ module.exports = {
     config.resolve.alias.set('@', resolve('src'));
     config.resolve.alias.set('@mudas/example', resolve('packages/index.js'));
 
-    // 不生成 html
-    // config.plugins.delete('html');
-    // config.plugins.delete('preload');
-    // config.plugins.delete('prefetch');
+    // 构建若皆为 js 库，则不需要生成 html
+    if (!isDebug) {
+      config.plugins.delete('html');
+      config.plugins.delete('preload');
+      config.plugins.delete('prefetch');
+    }
 
   }
 };

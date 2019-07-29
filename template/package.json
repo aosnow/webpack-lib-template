@@ -14,6 +14,7 @@
 	"scripts": {
 		"serve": "vue-cli-service serve",
 		"build": "vue-cli-service build --target lib --name {{ name }} packages/index.js",
+    "report": "vue-cli-service build --target lib --name file packages/index.js --report",
 		"lint": "vue-cli-service lint",
 		"test:unit": "vue-cli-service test:unit",
 		"pub": "npm publish --access=public"
