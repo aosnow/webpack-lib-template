@@ -83,10 +83,10 @@ module.exports = {
     config.resolve.alias.set('@', resolve('src'));
 
     // 开发阶段的别名
-    config.resolve.alias.set('{{#namespace}}{{namespace}}/{{/namespace}}{{ name }}', resolve('packages'));
+    config.resolve.alias.set('{{#if namespace}}{{namespace}}/{{/if}}{{ name }}', resolve('packages'));
 
     // 打包后的测试别名
-    // config.resolve.alias.set('{{#namespace}}{{namespace}}/{{/namespace}}{{ name }}', resolve('dist/{{ name }}.common.js'));
+    // config.resolve.alias.set('{{#if namespace}}{{namespace}}/{{/if}}{{ name }}', resolve('dist/{{ name }}.common.js'));
 
     // 构建若皆为 js 库，则不需要生成 html
     if (!isDebug) {
