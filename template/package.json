@@ -1,5 +1,5 @@
 {
-	"name": "{{ name }}",
+  {{#namespace}}"name": "{{namespace}}/{{ name }}",{{else}}"name": "{{ name }}",{{/namespace}}
 	"version": "{{ version }}",
 	"description": "{{ description }}",
 	"author": "{{ author }}",
@@ -15,7 +15,7 @@
 	"scripts": {
 		"serve": "vue-cli-service serve",
 		"build": "vue-cli-service build --target lib --name {{ name }} packages/index.js",
-    "report": "vue-cli-service build --target lib --name file packages/index.js --report",
+    "report": "vue-cli-service build --target lib --name {{ name }} packages/index.js --report",
 		"lint": "vue-cli-service lint",
 		"test:unit": "vue-cli-service test:unit",
 		"pub": "npm run build && npm publish --access=public"
@@ -28,6 +28,9 @@
 		"README.md"
 	],
 	"dependencies": {},
+  "peerDependencies": {
+    "core-js": "^2.6.5"
+  },
 	"devDependencies": {
 		"@vue/cli-plugin-babel": "^3.8.0",
 		"@vue/cli-plugin-eslint": "^3.8.0",
@@ -38,7 +41,6 @@
 		"babel-core": "7.0.0-bridge.0",
 		"babel-eslint": "^10.0.1",
 		"babel-jest": "^23.6.0",
-    "babel-minify-webpack-plugin": "^0.3.1",
 		"core-js": "^2.6.5",
 		"element-ui": "^2.9.2",
 		"eslint": "^5.16.0",

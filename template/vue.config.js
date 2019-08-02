@@ -6,7 +6,6 @@
 
 const path = require('path');
 const HappyPack = require('happypack');
-const MinifyPlugin = require('babel-minify-webpack-plugin');
 const os = require('os');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 const isDebug = process.env.NODE_ENV === 'development';
@@ -15,18 +14,16 @@ function resolve(...dir) {
   return path.join(__dirname, ...dir);
 }
 
-// 插件列表
-const plugins = [
-  // 多线程打包
-  new HappyPack({
-    id: 'happyBabel',
-    loaders: [{ loader: 'babel-loader?cacheDirectory=true' }],
-    threadPool: happyThreadPool
-  })
+// 排除所有不必要的模块，让宿主环境去安排必要的第三方包
+const regexp = /^(core-js)/i;
+const externals = isDebug ? '' : [
+  function(context, request, callback) {
+    if (regexp.test(request)) {
+      return callback(null, 'commonjs ' + request);
+    }
+    callback();
+  }
 ];
-
-// 模块打包优化 TreeShaking（Development 时无须启动，否则影响编译速度）
-!isDebug && (plugins.unshift(new MinifyPlugin()));
 
 // 配置集合
 module.exports = {
@@ -54,17 +51,24 @@ module.exports = {
 
     // 不分割任何模块（子模块合并，因此包不能过大）
     optimization: {
-      splitChunks: false
+      // 生产打包时压缩 js
+      minimize: !isDebug,
+      // 开发时爱怎么分割怎么分，少做点合并包的事应该会快点吧
+      splitChunks: isDebug ? {} : false
     },
 
-    // 排除外部库（如使用CDN或引用本地JS库）
-    externals: {
-      // vue: 'Vue',
-      // 'element-ui': 'ElementUI'
-    },
+    // 排除外部库以及不需要打包的 node_modules 第三方包（如使用CDN或引用本地JS库）
+    // 作为一个合格成熟的 lib，应该学会让用你的人去安装第三方包
+    externals,
 
     // 插件
-    plugins
+    plugins: [
+      new HappyPack({
+        id: 'happyBabel',
+        loaders: [{ loader: 'babel-loader?cacheDirectory=true' }],
+        threadPool: happyThreadPool
+      })
+    ]
   },
 
   chainWebpack: (config) => {
@@ -77,7 +81,12 @@ module.exports = {
 
     // 路径别名
     config.resolve.alias.set('@', resolve('src'));
-    config.resolve.alias.set('@mudas/example', resolve('packages/index.js'));
+
+    // 开发阶段的别名
+    config.resolve.alias.set({{#namespace}}'{{namespace}}/{{ name }}'{{else}}'{{ name }}'{{/namespace}}, resolve('packages'));
+
+    // 打包后的测试别名
+    // config.resolve.alias.set({{#namespace}}'{{namespace}}/{{ name }}'{{else}}'{{ name }}'{{/namespace}}, resolve('dist/{{ name }}.common.js'));
 
     // 构建若皆为 js 库，则不需要生成 html
     if (!isDebug) {

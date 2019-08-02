@@ -5,6 +5,11 @@
       "required": true,
       "label": "Project name"
     },
+    "namespace": {
+      "type": "string",
+      "label": "Library prefix(e.g '@mudas')",
+      "default": "@mudas"
+    },
     "description": {
       "type": "string",
       "required": true,
