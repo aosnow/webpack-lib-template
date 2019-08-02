@@ -15,6 +15,20 @@ function resolve(...dir) {
   return path.join(__dirname, ...dir);
 }
 
+// 插件列表
+const plugins = [
+  // 多线程打包
+  new HappyPack({
+    id: 'happyBabel',
+    loaders: [{ loader: 'babel-loader?cacheDirectory=true' }],
+    threadPool: happyThreadPool
+  })
+];
+
+// 模块打包优化 TreeShaking（Development 时无须启动，否则影响编译速度）
+!isDebug && (plugins.unshift(new MinifyPlugin()));
+
+// 配置集合
 module.exports = {
   publicPath: isDebug ? '/' : './',
   outputDir: 'dist',
@@ -49,15 +63,8 @@ module.exports = {
       // 'element-ui': 'ElementUI'
     },
 
-    // 复制插件
-    plugins: [
-      new MinifyPlugin(),
-      new HappyPack({
-        id: 'happyBabel',
-        loaders: [{ loader: 'babel-loader?cacheDirectory=true' }],
-        threadPool: happyThreadPool
-      })
-    ]
+    // 插件
+    plugins
   },
 
   chainWebpack: (config) => {
