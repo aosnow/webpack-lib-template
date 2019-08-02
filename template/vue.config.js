@@ -6,6 +6,7 @@
 
 const path = require('path');
 const HappyPack = require('happypack');
+const MinifyPlugin = require('babel-minify-webpack-plugin');
 const os = require('os');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 const isDebug = process.env.NODE_ENV === 'development';
@@ -50,6 +51,7 @@ module.exports = {
 
     // 复制插件
     plugins: [
+      new MinifyPlugin(),
       new HappyPack({
         id: 'happyBabel',
         loaders: [{ loader: 'babel-loader?cacheDirectory=true' }],
