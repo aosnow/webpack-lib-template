@@ -15,7 +15,7 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       '@': resolve('src'),
-      {{#namespace}}'{{namespace}}/{{ name }}'{{else}}'{{ name }}'{{/namespace}}: resolve('packages')
+      '{{#namespace}}{{namespace}}/{{/namespace}}{{ name }}': resolve('packages')
     }
   }
 };

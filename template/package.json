@@ -1,5 +1,5 @@
 {
-  {{#namespace}}"name": "{{namespace}}/{{ name }}",{{else}}"name": "{{ name }}",{{/namespace}}
+  "name": "{{#namespace}}{{namespace}}/{{/namespace}}{{ name }}",
 	"version": "{{ version }}",
 	"description": "{{ description }}",
 	"author": "{{ author }}",
