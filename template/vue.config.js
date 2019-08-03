@@ -16,14 +16,7 @@ function resolve(...dir) {
 
 // 排除所有不必要的模块，让宿主环境去安排必要的第三方包
 const regexp = /^(core-js)/i;
-const externals = isDebug ? '' : [
-  function(context, request, callback) {
-    if (regexp.test(request)) {
-      return callback(null, 'commonjs ' + request);
-    }
-    callback();
-  }
-];
+const externals = isDebug ? '' : [regexp];
 
 // 配置集合
 module.exports = {
@@ -51,8 +44,6 @@ module.exports = {
 
     // 不分割任何模块（子模块合并，因此包不能过大）
     optimization: {
-      // 生产打包时压缩 js
-      minimize: !isDebug,
       // 开发时爱怎么分割怎么分，少做点合并包的事应该会快点吧
       splitChunks: isDebug ? {} : false
     },
