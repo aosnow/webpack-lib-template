@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { repeat, trim, SwitchGroup } from '@mudas/example';
+import { repeat, trim, SwitchGroup } from '{{#if namespace}}{{namespace}}/{{/if}}{{ name }}';
 
 export default {
   name: 'app',
