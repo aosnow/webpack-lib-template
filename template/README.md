@@ -1,6 +1,9 @@
 # {{ name }}
 
-> this is a lib.
+> {{ description }}
 
-## README
+### Usage	
 
+``` bash
+$ npm install -S {{#if namespace}}{{namespace}}/{{/if}}{{ name }}
+```
