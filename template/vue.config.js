@@ -47,6 +47,9 @@ module.exports = {
 
     // 不分割任何模块（子模块合并，因此包不能过大）
     optimization: {
+      // 生产环境时压缩代码
+      minimize: !isDebug,
+
       // 开发时爱怎么分割怎么分，少做点合并包的事应该会快点吧
       splitChunks: isDebug ? {} : false
     },
