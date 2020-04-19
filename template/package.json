@@ -1,11 +1,11 @@
 {
   "name": "{{#if namespace}}{{namespace}}/{{/if}}{{ name }}",
   "version": "{{ version }}",
-	"description": "{{ description }}",
-	"author": "{{ author }}",
-	"license": "{{ license }}",
-	"main": "dist/{{ name }}.common.js",
-	"module": "",
+  "description": "{{ description }}",
+  "author": "{{ author }}",
+  "license": "{{ license }}",
+  "main": "dist/{{ name }}.common.js",
+  "module": "dist/{{ name }}.esm.js",
 	"homepage": "",
 	"repository": {
 		"type": "git",
@@ -14,8 +14,7 @@
 	"keywords": [],
 	"scripts": {
 		"serve": "vue-cli-service serve",
-		"build": "vue-cli-service build --target lib --name {{ name }} packages/index.js",
-		"report": "vue-cli-service build --target lib --name {{ name }} packages/index.js --report",
+		"build": "rollup -c",
 		"lint": "vue-cli-service lint",
 		"test:unit": "vue-cli-service test:unit",
 		"pub": "npm run build && npm publish --access=public"
@@ -31,22 +30,25 @@
 	"optionalDependencies": {
 		"fsevents": "*"
 	},
-  "dependencies": {
-    "core-js": "^3.6.4"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.2.0",
-    "@vue/cli-plugin-eslint": "~4.2.0",
-    "@vue/cli-plugin-unit-jest": "~4.2.0",
-    "@vue/cli-service": "~4.2.0",
-    "@vue/eslint-config-airbnb": "^5.0.2",
-    "@vue/test-utils": "1.0.0-beta.31",
-    "babel-eslint": "^10.0.3",
-    "element-ui": "^2.13.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-vue": "^6.1.2",
-    "vue": "^2.6.11",
-    "vue-template-compiler": "^2.6.11"
-  }
+	"dependencies": {
+		"core-js": "^3.6.5"
+	},
+	"devDependencies": {
+		"@vue/cli-plugin-babel": "~4.2.0",
+		"@vue/cli-plugin-eslint": "~4.2.0",
+		"@vue/cli-plugin-unit-jest": "~4.2.0",
+		"@vue/cli-service": "~4.2.0",
+		"@vue/eslint-config-airbnb": "^5.0.2",
+		"@vue/test-utils": "1.0.0-beta.31",
+		"babel-eslint": "^10.0.3",
+		"element-ui": "^2.13.1",
+		"eslint": "^6.7.2",
+		"eslint-plugin-import": "^2.20.1",
+		"eslint-plugin-vue": "^6.1.2",
+		"rollup": "^2.6.1",
+		"rollup-plugin-delete": "^1.2.0",
+		"rollup-plugin-vue": "^5.1.6",
+		"vue": "^2.6.11",
+		"vue-template-compiler": "^2.6.11"
+	}
 }

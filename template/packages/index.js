@@ -5,6 +5,6 @@
 // ------------------------------------------------------------------------------
 
 import { trim, repeat } from './string';
-import SwitchGroup from './switch-group';
+import SwitchGroup from './switch-group.vue';
 
 export { trim, repeat, SwitchGroup };
